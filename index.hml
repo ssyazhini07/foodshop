@@ -307,7 +307,7 @@ function submitDetails() {
     const phone = document.getElementById("phone").value;
     const address = document.getElementById("address").value;
 
-    fetch("http://localhost:5000/save-details", {
+    fetch("/save-details", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
