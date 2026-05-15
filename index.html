@@ -83,8 +83,8 @@
         .hero {
             text-align: center;
             padding: 60px 20px;
-            background:          
-                    linear-gradient(rgba(0, 0, 0, 0.5),
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.5),
                     rgba(0, 0, 0, 0.5)),
                 url('https://images.unsplash.com/photo-1504674900247-0877df9cc836');
             background-size: cover;
@@ -184,21 +184,21 @@
 
 <body>
 
-  <div id="detailsPopup" class="popup">
-    <div class="popup-content">
-        <span class="close-btn" onclick="closeDetailsForm()">&times;</span>
+    <div id="detailsPopup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closeDetailsForm()">&times;</span>
 
-        <h2>Enter Your Details</h2><br>
-        <label>Name</label>
-        <input id="name" type="text" placeholder="Enter Name">
-        <label>Phone number</label>
-        <input id="phone" type="text" placeholder="Enter Phone Number">
-        <label>Address</label>
-        <input id="address" type="text" placeholder="Enter Address">
+            <h2>Enter Your Details</h2><br>
+            <label>Name</label>
+            <input id="name" type="text" placeholder="Enter Name">
+            <label>Phone number</label>
+            <input id="phone" type="text" placeholder="Enter Phone Number">
+            <label>Address</label>
+            <input id="address" type="text" placeholder="Enter Address">
 
-        <button onclick="submitDetails()">Submit</button>
+            <button onclick="submitDetails()">Submit</button>
+        </div>
     </div>
-</div>
     <nav>
         <div class="logo">
             <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png">
@@ -214,8 +214,7 @@
             <li><a href="#" onclick="openDetailsForm()">Details</a></li>
         </ul>
 
-        <button onclick="toggleDarkMode()"
-            style="padding:10px 15px; border:none; border-radius:8px; cursor:pointer;">
+        <button onclick="toggleDarkMode()" style="padding:10px 15px; border:none; border-radius:8px; cursor:pointer;">
             🌙 Dark Mode
         </button>
     </nav>
@@ -274,8 +273,8 @@
 
     <footer id="contact">
         <h3>Contact Us</h3>
-        <p>📍 Kottai, Tamil Nadu, India</p>
-        <p>📞 +91 98765 43210</p>
+        <p>📍 Namakkal, Tamil Nadu, India</p>
+        <p>📞 +91 8903623555</p>
         <p>✉ info@tastybites.com</p>
         <p>🕒 Open Daily: 9:00 AM - 11:00 PM</p>
 
@@ -293,46 +292,46 @@
             document.body.classList.toggle("dark-mode");
         }
     </script>
-<script>
-function openDetailsForm() {
-    document.getElementById("detailsPopup").style.display = "flex";
-}
-
-function closeDetailsForm() {
-    document.getElementById("detailsPopup").style.display = "none";
-}
-
-function submitDetails() {
-    const name = document.getElementById("name").value;
-    const phone = document.getElementById("phone").value;
-    const address = document.getElementById("address").value;
-
-    fetch("/save-details", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            name,
-            phone,
-            address
-        })
-    })
-    .then(res => res.json())
-    .then(data => {
-        alert(data.message);
-
-        if (data.success) {
-            closeDetailsForm();
+    <script>
+        function openDetailsForm() {
+            document.getElementById("detailsPopup").style.display = "flex";
         }
-    })
-    .catch(err => {
-        console.log(err);
-        alert("Server error");
-    });
 
-}
-</script>
+        function closeDetailsForm() {
+            document.getElementById("detailsPopup").style.display = "none";
+        }
+
+        function submitDetails() {
+            const name = document.getElementById("name").value;
+            const phone = document.getElementById("phone").value;
+            const address = document.getElementById("address").value;
+
+            fetch("/save-details", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name,
+                    phone,
+                    address
+                })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    alert(data.message);
+
+                    if (data.success) {
+                        closeDetailsForm();
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                    alert("Server error");
+                });
+
+        }
+    </script>
 
 </body>
 
