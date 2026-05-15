@@ -8,11 +8,11 @@ app.use(cors());
 app.use(express.json());
 
 /* MySQL connection */
-const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",   // your mysql password
-    database: "foodshop"
+const db = mysql.createConnection(process.env.MYSQL_URL || {
+    host: process.env.DB_HOST || "localhost",
+    user: process.env.DB_USER || "root",
+    password: process.env.DB_PASSWORD || "",   // your mysql password
+    database: process.env.DB_NAME || "foodshop"
 });
 
 db.connect((err) => {
@@ -49,6 +49,7 @@ app.post("/save-details", (req, res) => {
     );
 });
 
-app.listen(5000, () => {
-    console.log("Server running on port 5000");
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });

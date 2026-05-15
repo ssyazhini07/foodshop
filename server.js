@@ -9,11 +9,11 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
-const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "yourpassword[password]",
-    database: "userDB"
+const db = mysql.createConnection(process.env.MYSQL_URL || {
+    host: process.env.DB_HOST || "localhost",
+    user: process.env.DB_USER || "root",
+    password: process.env.DB_PASSWORD || "yourpassword[password]",
+    database: process.env.DB_NAME || "userDB"
 });
 
 db.connect(err => {
@@ -39,6 +39,7 @@ app.post("/register", (req, res) => {
     });
 });
 
-app.listen(3000, () => {
-    console.log("Server running on port 3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
