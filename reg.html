@@ -18,7 +18,7 @@
             let email = document.getElementById("email").value;
             let password = document.getElementById("password").value;
 
-            fetch("http://localhost:3000/register", {
+            fetch("/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded"

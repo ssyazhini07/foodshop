@@ -79,7 +79,7 @@
             let username = document.getElementById("username").value;
             let password = document.getElementById("password").value;
 
-            let res = await fetch("http://localhost:3000/login");
+            let res = await fetch("/login");
 
             const data = await res.json();
 
