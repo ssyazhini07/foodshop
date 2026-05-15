@@ -1,0 +1,102 @@
+<html>
+
+<head>
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Aerial;
+            font-style: italic;
+            background: pink;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .box {
+            background: beige;
+            padding: 20px;
+            width: 250px;
+            margin: auto;
+            border-radius: 10px;
+        }
+
+        .eye {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            cursor: pointer;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        button {
+            padding: 10px;
+            width: 100%;
+            background: blue;
+            color: white;
+            border: none;
+        }
+
+        #msg {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+        <h2>Login</h2>
+        <label>Username</label>
+        <input type="text" id="username" placeholder="Username"><br>
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Password"><br>
+        <button type="button" onclick="login()">Login</button>
+        <div class="pass-box">
+            <span class="eye" onclick="togglePassword()">👁</span>
+        </div>
+
+
+        <div id="msg"></div>
+    </div>
+    <script>
+        const passwordField = document.getElementById("password");
+
+        function togglePassword() {
+            if (passwordField.type = "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+
+        async function login() {
+
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+
+            let res = await fetch("http://localhost:3000/login");
+
+            const data = await res.json();
+
+            if (data.status === "success") {
+
+                document.getElementById("msg").innerHTML =
+                    "Login Successful ✅";
+
+            } else {
+
+                document.getElementById("msg").innerHTML =
+                    "Invalid ❌";
+            }
+
+        }
+    </script>
+
+</body>
+
+</html>

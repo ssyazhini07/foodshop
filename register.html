@@ -1,0 +1,105 @@
+<html>
+
+<head>
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Aerial;
+            font-style: italic;
+            background: pink;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .box {
+            background: beige;
+            padding: 20px;
+            width: 250px;
+            margin: auto;
+            border-radius: 10px;
+        }
+
+        .eye {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            cursor: pointer;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        button {
+            padding: 10px;
+            width: 100%;
+            background: blue;
+            color: white;
+            border: none;
+        }
+
+        #msg {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+        <h2>Login</h2>
+        <label>Username</label>
+        <input type="text" id="username" placeholder="Username"><br>
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Password"><br>
+        <button type="button" onclick="login()">Login</button>
+        <div class="pass-box">
+            <span class="eye" onclick="togglePassword()">👁</span>
+        </div>
+
+
+        <div id="msg"></div>
+    </div>
+    <script>
+        const passwordField = document.getElementById("password");
+
+        function togglePassword() {
+            if (passwordField.type = "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+
+        function login() {
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            let users = [
+                { username: "Neha", password: "1234" },
+                { username: "Malini", password: "5678" },
+                { username: "latha", password: "7890" }
+            ];
+
+            let isValid = false;
+
+            for (let i = 0; i < users.length; i++) {
+                if (username === users[i].username && password === users[i].password) {
+                    isValid = true;
+                    break;
+                }
+            }
+
+            if (isValid) {
+                document.getElementById("result").innerHTML = "✅ Login Successful";
+            } else {
+                document.getElementById("result").innerHTML = "❌ Login Failed";
+            }
+        }
+    </script>
+
+</body>
+
+</html>

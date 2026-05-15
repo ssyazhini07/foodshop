@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "body-parse": "^0.1.0",
+    "body-parser": "^2.2.2",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "mongoose": "^9.6.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.22.3",
+    "pg": "^8.20.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "welcome",
+  "version": "1.0.0",
+  "main": "server.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

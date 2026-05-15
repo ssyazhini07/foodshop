@@ -1,0 +1,300 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delicious Food Shop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            font-style: italic;
+        }
+
+        body {
+            background: #fff8f0;
+            color: #333333;
+            transition: 0.3s;
+        }
+
+        .dark-mode {
+            background: #121212;
+            color: white;
+        }
+
+        .dark-mode .section,
+        .dark-mode .hero,
+        .dark-mode footer,
+        .dark-mode nav {
+            color: white;
+        }
+
+        .dark-mode #menu div {
+            background: #1e1e1e !important;
+            color: white !important;
+            border: 1px solid #444;
+        }
+
+        nav {
+            background: palevioletred;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            position: sticky;
+            top: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        nav ul li a:hover {
+            color: #667aff;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836');
+            background-size: cover;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 22px;
+        }
+
+        .section {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .food-gallery {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .food-gallery img {
+            width: 300px;
+            height: 220px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .video-section iframe {
+            width: 80px;
+            height: 40px;
+            margin-top: 20px;
+            border-radius: 15px;
+            object-fit: cover;
+        }
+
+        footer {
+            background: #6828d6;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            width: 300px;
+        }
+
+        .popup-content input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid gray;
+            border-radius: 8px;
+        }
+
+        .popup-content button {
+            background: palevioletred;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .close-btn {
+            float: right;
+            font-size: 25px;
+            cursor: pointer;
+            color: red;
+        }
+    </style>
+</head>
+<div id="contactPopup" class="popup">
+    <div class="popup-content">
+        <span class="close-btn" onclick="closeContactForm()">&times;</span>
+        <h2>Contact Us</h2>
+        <label>Email</label>
+        <input type="Email" placeholder="Enter Email" required>
+        <label>Phone number</label>
+        <input type="Phone number" placeholder="Enter Phone number" required>
+
+        <button onclick="submitForm()">Submit</button>
+    </div>
+</div>
+
+<body>
+
+    <nav>
+        <div class="logo">
+            <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" alt="Food Logo">
+            Tasty Bites
+        </div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#videos">Videos</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#" onclick="openContactForm()">Contact Us</a></li><br>
+
+        </ul>
+        <button onclick="toggleDarkMode()" style="padding:10px 15px; border:none; border-radius:8px; cursor:pointer;">🌙
+            Dark Mode</button>
+    </nav>
+
+    <section class="hero" id="home">
+        <h1>Welcome to Tasty Bites</h1>
+        <p style="font-style:italic">Fresh, Delicious, and Tasty food</p>
+    </section>
+
+    <section class="section" id="menu">
+        <h2>Our Menu</h2>
+        <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-top:30px;">
+            <div
+                style="background:white; padding:20px; border-radius:15px; width:220px; box-shadow:0 4px 10px rgba(0,0,0,0.2);">
+                <h3>🍕 Pizza</h3>
+                <p>Cheesy delight with fresh toppings</p>
+                <h4>₹299</h4>
+            </div>
+            <div
+                style="background:white; padding:20px; border-radius:15px; width:220px; box-shadow:0 4px 10px rgba(0,0,0,0.2);">
+                <h3>🍔 Burger</h3>
+                <p>Juicy grilled burger with fries</p>
+                <h4>₹199</h4>
+            </div>
+            <div
+                style="background:white; padding:20px; border-radius:15px; width:220px; box-shadow:0 4px 10px rgba(0,0,0,0.2);">
+                <h3>🥗 Salad</h3>
+                <p>Healthy fresh green salad</p>
+                <h4>₹149</h4>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="gallery">
+        <h2>Our Special Foods</h2>
+        <div class="food-gallery">
+            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38" alt="Pizza">
+            <img src="https://images.unsplash.com/photo-1550547660-d9450f859349" alt="Burger">
+            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c" alt="Salad">
+        </div>
+    </section>
+
+    <section class="section video-section" id="videos">
+        <h2>Watch Our Food Story</h2>
+        <video controls poster="https://images.unsplash.com/photo-1550547660-d9450f859349">
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        </video>
+    </section>
+
+    <footer id="contact">
+        <h3>Contact Us</h3>
+        <p>📍 Kottai, Tamil Nadu, India</p>
+        <p>📞 +91 98765 43210</p>
+        <p>✉ info@tastybites.com</p>
+        <p>🕒 Open Daily: 9:00 AM - 11:00 PM</p>
+        <div style="margin-top:15px;">
+            <a href="#" style="color:white; margin:0 10px; text-decoration:none;">Facebook</a>
+            <a href="#" style="color:white; margin:0 10px; text-decoration:none;">Instagram</a>
+            <a href="#" style="color:white; margin:0 10px; text-decoration:none;">WhatsApp</a>
+        </div>
+        <p style="margin-top:15px;">© 2026 Tasty Bites | All Rights Reserved</p>
+    </footer>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
+    <script>
+        function submitContact(event) {
+            event.preventDefault();
+            alert("Thank you! Your contact form was submitted.");
+        }
+    </script>
+    <script>
+
+        function openContactForm() {
+            document.getElementById("contactPopup").style.display = "flex";
+        }
+
+        function closeContactForm() {
+            document.getElementById("contactPopup").style.display = "none";
+        }
+
+        function submitForm() {
+            alert("Login Successful!");
+            closeContactForm();
+        }
+    </script>
+</body>
+
+</html>
