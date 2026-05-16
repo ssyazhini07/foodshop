@@ -8,11 +8,12 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname));
 
-const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",   // your mysql password
-    database: "customer_db"
+const db = mysql.createConnection(process.env.MYSQL_URL || {
+    host: process.env.MYSQLHOST || "localhost",
+    user: process.env.MYSQLUSER || "root",
+    password: process.env.MYSQLPASSWORD || "",
+    database: process.env.MYSQLDATABASE || "customer_db",
+    port: process.env.MYSQLPORT || 3306
 });
 
 db.connect((err) => {
@@ -77,6 +78,7 @@ app.delete("/delete/:id", (req, res) => {
     );
 });
 
-app.listen(3000, () => {
-    console.log("Server running on port 3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
