@@ -1,38 +1,154 @@
 <html>
 
 <head>
-    <title>Customer Tracker</title>
+    <title>Customer Billing Tracker</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            margin: 20px;
+        }
+
+        input {
+            padding: 10px;
+            margin: 5px;
+            width: 220px;
+        }
+
+        button {
+            padding: 8px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 90%;
+            margin: auto;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+    </style>
 </head>
 
 <body>
 
-    <h2>Customer Service Tracker</h2>
+    <h1>Customer Billing Tracker</h1>
 
-    <input id="name" placeholder="Customer Name"><br><br>
-    <input id="service" placeholder="Service"><br><br>
-    <input id="amount" placeholder="Amount"><br><br>
-    <input id="date" type="date"><br><br>
+    <input type="hidden" id="editId">
 
+    <input id="name" placeholder="Customer Name">
+    <input id="service" placeholder="Service">
+    <input id="payment" placeholder="Payment">
+    <input type="date" id="dueDate">
+
+    <br>
     <button onclick="saveData()">Save</button>
+    <p id="msg"></p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Service</th>
+                <th>Payment</th>
+                <th>Due Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
 
     <script>
-        async function saveData() {
+        loadCustomers();
+
+        function saveData() {
+            const id = document.getElementById("editId").value;
+
             const data = {
                 customer_name: document.getElementById("name").value,
                 service: document.getElementById("service").value,
-                amount: document.getElementById("amount").value,
-                due_date: document.getElementById("date").value
+                payment: document.getElementById("payment").value,
+                due_date: document.getElementById("dueDate").value
             };
 
-            const res = await fetch("http://localhost:3000/add", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            });
+            let url = "/save";
+            let method = "POST";
 
-            alert(await res.text());
+            if (id) {
+                url = "/update/" + id;
+                method = "PUT";
+            }
+
+            fetch("http://localhost:3000" + url, {
+                method: method,
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            })
+                .then(res => res.text())
+                .then(msg => {
+                    document.getElementById("msg").innerText = msg;
+                    clearForm();
+                    loadCustomers();
+                });
+        }
+
+        function loadCustomers() {
+            fetch("http://localhost:3000/customers")
+                .then(res => res.json())
+                .then(data => {
+                    let rows = "";
+
+                    data.forEach(c => {
+                        rows += `
+            <tr>
+                <td>${c.customer_name}</td>
+                <td>${c.service}</td>
+                <td>${c.payment}</td>
+                <td>${c.due_date.split('T')[0]}</td>
+                <td>
+                    <button onclick="editCustomer(${c.id},'${c.customer_name}','${c.service}',${c.payment},'${c.due_date.split('T')[0]}')">Edit</button>
+                    <button onclick="deleteCustomer(${c.id})">Delete</button>
+                </td>
+            </tr>`;
+                    });
+
+                    document.getElementById("tableBody").innerHTML = rows;
+                });
+        }
+
+        function editCustomer(id, name, service, payment, date) {
+            document.getElementById("editId").value = id;
+            document.getElementById("name").value = name;
+            document.getElementById("service").value = service;
+            document.getElementById("payment").value = payment;
+            document.getElementById("dueDate").value = date;
+        }
+
+        function deleteCustomer(id) {
+            if (confirm("Delete this record?")) {
+                fetch("http://localhost:3000/delete/" + id, {
+                    method: "DELETE"
+                })
+                    .then(res => res.text())
+                    .then(msg => {
+                        document.getElementById("msg").innerText = msg;
+                        loadCustomers();
+                    });
+            }
+        }
+
+        function clearForm() {
+            document.getElementById("editId").value = "";
+            document.getElementById("name").value = "";
+            document.getElementById("service").value = "";
+            document.getElementById("payment").value = "";
+            document.getElementById("dueDate").value = "";
         }
     </script>
 
