@@ -1,12 +1,16 @@
 const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
+const path = require("path");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname));
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "cust.html"));
+});
 
 const db = mysql.createConnection(process.env.MYSQL_URL || {
     host: process.env.MYSQLHOST || "localhost",
