@@ -10,7 +10,7 @@
     "pg": "^8.20.0"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node custom.js"
   },
   "name": "welcome",
   "version": "1.0.0",
