@@ -13,11 +13,10 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "index.html"));
 });
 
-/* MySQL connection */
 const db = mysql.createConnection(process.env.MYSQL_URL || {
     host: process.env.DB_HOST || "localhost",
     user: process.env.DB_USER || "root",
-    password: process.env.DB_PASSWORD || "",   // your mysql password
+    password: process.env.DB_PASSWORD || "",
     database: process.env.DB_NAME || "foodshop"
 });
 
@@ -35,24 +34,20 @@ app.post("/save-details", (req, res) => {
     const sql =
         "INSERT INTO details (name, phone, address) VALUES (?, ?, ?)";
 
-    db.query(
-        sql,
-        [name, phone, address],
-        (err, result) => {
-            if (err) {
-                console.log(err);
-                return res.json({
-                    success: true,
-                    message: "Details saved successfully"
-                });
-            }
-
-            res.json({
+    db.query(sql, [name, phone, address], (err, result) => {
+        if (err) {
+            console.log("Insert error:", err);
+            return res.status(500).json({
                 success: false,
                 message: "Failed to save"
             });
         }
-    );
+
+        res.json({
+            success: true,
+            message: "Details saved successfully"
+        });
+    });
 });
 
 const PORT = process.env.PORT || 5000;
